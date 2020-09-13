@@ -48,7 +48,7 @@ print(f'Subtask #2 = {similarity_calculator(set1, set2)}')
 
 
 # Subtask 4
-url = r'link'
+url = r'https://raw.githack.com/keelfy/aiml_lab1/master/resources/sales.json'
 data = json.loads(requests.get(url).text)
 csv_data = list()
 csv_data.append(["item", "country", "year", "sales"])
@@ -104,4 +104,7 @@ while current_date != end_date:
     # going to the next day...
     current_date += delta
 
-print(required_valuetes_data)
+print('Subtask #5 = {')
+for valuete in required_valuetes:
+    print(f'{valuete} = {required_valuetes_data[valuete]}')
+print('}')
