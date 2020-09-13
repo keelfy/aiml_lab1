@@ -101,7 +101,6 @@ while current_date != end_date:
         if valuete_name in required_valuetes:
             required_valuetes_data[valuete_name].append(valuete_cost)
 
-    # going to the next day...
     current_date += delta
 
 print('Subtask #5 = {')
