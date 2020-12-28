@@ -1,0 +1,383 @@
+= Лабораторная работа №1
+
+Написал: Егор Кузьмин ИДБ-18-10
+
+== Задание №1.
+.б) Сделайте это в одну строчку кода (разрешается с меньшей эффективностью)
+[source,python]
+----
+array = ['a', 'b', 'c', 'd', 'e', 'a', 'a', 'b', 'c']
+result = {value: [idx for idx, x in enumerate(array) if x == value] for value in array}
+print(result)
+----
+
+.Результат
+[source,bash]
+----
+{
+  'a': [0, 5, 6],
+  'b': [1, 7],
+  'c': [2, 8],
+  'd': [3],
+  'e': [4]
+}
+----
+
+
+== Задание №2
+[source,python]
+----
+my_set = {"A", "B", "C", "D"}
+my_set2 = {"A", "E"}
+
+def len_inter(my_set, my_set2):
+    count_res = 0
+    for item in my_set:
+        for nes_item in my_set2:
+            if item == nes_item:
+                count_res += 1
+    return count_res
+
+def len_union(my_set, my_set2):
+    return len(my_set) + len(my_set2) - len_inter(my_set, my_set2)
+
+def my_jaccard(my_set, my_set2):
+    return len_inter(my_set, my_set2) / len_union(my_set, my_set2)
+
+print(my_jaccard(my_set, my_set2))
+----
+
+.Результат
+[source,bash]
+----
+0.2
+----
+
+== Задание №4
+[source,python]
+----
+url = r'https://raw.githack.com/keelfy/aiml_lab1/master/resources/sales.json'
+data = json.loads(requests.get(url).text)
+csv_data = list()
+csv_data.append(["item", "country", "year", "sales"])
+
+for json_item in data:
+    item_name = json_item['item']
+    for country in json_item['sales_by_country']:
+        for year in json_item['sales_by_country'][country]:
+            sales = json_item['sales_by_country'][country][year]
+            csv_data.append([item_name, country, year, sales])
+pprint(csv_data)
+----
+
+.Результат
+[source,bash]
+----
+[['item', 'country', 'year', 'sales'],
+ ['sweater', 'Russia', '2010', 85],
+ ['sweater', 'Russia', '2011', 10],
+ ['sweater', 'Russia', '2012', 104],
+ ['sweater', 'Russia', '2013', 59],
+ ['sweater', 'Russia', '2014', 113],
+ ['sweater', 'Russia', '2015', 21],
+ ['sweater', 'Russia', '2016', 23],
+ ['sweater', 'Russia', '2017', 94],
+ ['sweater', 'Russia', '2018', 134],
+ ['sweater', 'Russia', '2019', 152],
+ ['sweater', 'Belarus', '2010', 34],
+ ['sweater', 'Belarus', '2011', 87],
+ ['sweater', 'Belarus', '2012', 91],
+ ['sweater', 'Belarus', '2013', 71],
+ ['sweater', 'Belarus', '2014', 44],
+ ['sweater', 'Belarus', '2015', 61],
+ ['sweater', 'Belarus', '2016', 124],
+ ['sweater', 'Belarus', '2017', 82],
+ ['sweater', 'Belarus', '2018', 33],
+ ['sweater', 'Belarus', '2019', 85],
+ ['sweater', 'Ukraine', '2010', 53],
+ ['sweater', 'Ukraine', '2011', 39],
+ ['sweater', 'Ukraine', '2012', 32],
+ ['sweater', 'Ukraine', '2013', 102],
+ ['sweater', 'Ukraine', '2014', 121],
+ ['sweater', 'Ukraine', '2015', 103],
+ ['sweater', 'Ukraine', '2016', 100],
+ ['sweater', 'Ukraine', '2017', 64],
+ ['sweater', 'Ukraine', '2018', 49],
+ ['sweater', 'Ukraine', '2019', 143],
+ ['sweater', 'Lithuania', '2010', 100],
+ ['sweater', 'Lithuania', '2011', 34],
+ ['sweater', 'Lithuania', '2012', 75],
+ ['sweater', 'Lithuania', '2013', 151],
+ ['sweater', 'Lithuania', '2014', 26],
+ ['sweater', 'Lithuania', '2015', 76],
+ ['sweater', 'Lithuania', '2016', 150],
+ ['sweater', 'Lithuania', '2017', 21],
+ ['sweater', 'Lithuania', '2018', 114],
+ ['sweater', 'Lithuania', '2019', 18],
+ ['sweater', 'Latvia', '2010', 70],
+ ['sweater', 'Latvia', '2011', 156],
+ ['sweater', 'Latvia', '2012', 70],
+ ['sweater', 'Latvia', '2013', 39],
+ ['sweater', 'Latvia', '2014', 130],
+ ['sweater', 'Latvia', '2015', 87],
+ ['sweater', 'Latvia', '2016', 36],
+ ['sweater', 'Latvia', '2017', 85],
+ ['sweater', 'Latvia', '2018', 68],
+ ['sweater', 'Latvia', '2019', 33],
+ ['sneakers', 'Russia', '2010', 27],
+ ['sneakers', 'Russia', '2011', 143],
+ ['sneakers', 'Russia', '2012', 109],
+ ['sneakers', 'Russia', '2013', 52],
+ ['sneakers', 'Russia', '2014', 39],
+ ['sneakers', 'Russia', '2015', 116],
+ ['sneakers', 'Russia', '2016', 85],
+ ['sneakers', 'Russia', '2017', 148],
+ ['sneakers', 'Russia', '2018', 154],
+ ['sneakers', 'Russia', '2019', 69],
+ ['sneakers', 'Belarus', '2010', 156],
+ ['sneakers', 'Belarus', '2011', 112],
+ ['sneakers', 'Belarus', '2012', 111],
+ ['sneakers', 'Belarus', '2013', 16],
+ ['sneakers', 'Belarus', '2014', 132],
+ ['sneakers', 'Belarus', '2015', 46],
+ ['sneakers', 'Belarus', '2016', 52],
+ ['sneakers', 'Belarus', '2017', 40],
+ ['sneakers', 'Belarus', '2018', 65],
+ ['sneakers', 'Belarus', '2019', 74],
+ ['sneakers', 'Ukraine', '2010', 158],
+ ['sneakers', 'Ukraine', '2011', 48],
+ ['sneakers', 'Ukraine', '2012', 98],
+ ['sneakers', 'Ukraine', '2013', 18],
+ ['sneakers', 'Ukraine', '2014', 121],
+ ['sneakers', 'Ukraine', '2015', 55],
+ ['sneakers', 'Ukraine', '2016', 139],
+ ['sneakers', 'Ukraine', '2017', 19],
+ ['sneakers', 'Ukraine', '2018', 151],
+ ['sneakers', 'Ukraine', '2019', 69],
+ ['sneakers', 'Lithuania', '2010', 155],
+ ['sneakers', 'Lithuania', '2011', 49],
+ ['sneakers', 'Lithuania', '2012', 81],
+ ['sneakers', 'Lithuania', '2013', 46],
+ ['sneakers', 'Lithuania', '2014', 155],
+ ['sneakers', 'Lithuania', '2015', 106],
+ ['sneakers', 'Lithuania', '2016', 65],
+ ['sneakers', 'Lithuania', '2017', 118],
+ ['sneakers', 'Lithuania', '2018', 49],
+ ['sneakers', 'Lithuania', '2019', 17],
+ ['sneakers', 'Latvia', '2010', 16],
+ ['sneakers', 'Latvia', '2011', 147],
+ ['sneakers', 'Latvia', '2012', 105],
+ ['sneakers', 'Latvia', '2013', 50],
+ ['sneakers', 'Latvia', '2014', 97],
+ ['sneakers', 'Latvia', '2015', 129],
+ ['sneakers', 'Latvia', '2016', 82],
+ ['sneakers', 'Latvia', '2017', 90],
+ ['sneakers', 'Latvia', '2018', 77],
+ ['sneakers', 'Latvia', '2019', 19],
+ ['hoodie', 'Russia', '2010', 46],
+ ['hoodie', 'Russia', '2011', 23],
+ ['hoodie', 'Russia', '2012', 15],
+ ['hoodie', 'Russia', '2013', 88],
+ ['hoodie', 'Russia', '2014', 121],
+ ['hoodie', 'Russia', '2015', 144],
+ ['hoodie', 'Russia', '2016', 107],
+ ['hoodie', 'Russia', '2017', 14],
+ ['hoodie', 'Russia', '2018', 37],
+ ['hoodie', 'Russia', '2019', 83],
+ ['hoodie', 'Belarus', '2010', 126],
+ ['hoodie', 'Belarus', '2011', 42],
+ ['hoodie', 'Belarus', '2012', 82],
+ ['hoodie', 'Belarus', '2013', 30],
+ ['hoodie', 'Belarus', '2014', 51],
+ ['hoodie', 'Belarus', '2015', 24],
+ ['hoodie', 'Belarus', '2016', 82],
+ ['hoodie', 'Belarus', '2017', 157],
+ ['hoodie', 'Belarus', '2018', 70],
+ ['hoodie', 'Belarus', '2019', 138],
+ ['hoodie', 'Ukraine', '2010', 68],
+ ['hoodie', 'Ukraine', '2011', 97],
+ ['hoodie', 'Ukraine', '2012', 93],
+ ['hoodie', 'Ukraine', '2013', 108],
+ ['hoodie', 'Ukraine', '2014', 83],
+ ['hoodie', 'Ukraine', '2015', 75],
+ ['hoodie', 'Ukraine', '2016', 70],
+ ['hoodie', 'Ukraine', '2017', 42],
+ ['hoodie', 'Ukraine', '2018', 94],
+ ['hoodie', 'Ukraine', '2019', 112],
+ ['hoodie', 'Lithuania', '2010', 93],
+ ['hoodie', 'Lithuania', '2011', 95],
+ ['hoodie', 'Lithuania', '2012', 151],
+ ['hoodie', 'Lithuania', '2013', 93],
+ ['hoodie', 'Lithuania', '2014', 16],
+ ['hoodie', 'Lithuania', '2015', 144],
+ ['hoodie', 'Lithuania', '2016', 99],
+ ['hoodie', 'Lithuania', '2017', 140],
+ ['hoodie', 'Lithuania', '2018', 44],
+ ['hoodie', 'Lithuania', '2019', 47],
+ ['hoodie', 'Latvia', '2010', 65],
+ ['hoodie', 'Latvia', '2011', 122],
+ ['hoodie', 'Latvia', '2012', 68],
+ ['hoodie', 'Latvia', '2013', 157],
+ ['hoodie', 'Latvia', '2014', 54],
+ ['hoodie', 'Latvia', '2015', 29],
+ ['hoodie', 'Latvia', '2016', 156],
+ ['hoodie', 'Latvia', '2017', 50],
+ ['hoodie', 'Latvia', '2018', 76],
+ ['hoodie', 'Latvia', '2019', 17],
+ ['jeans', 'Russia', '2010', 148],
+ ['jeans', 'Russia', '2011', 23],
+ ['jeans', 'Russia', '2012', 130],
+ ['jeans', 'Russia', '2013', 103],
+ ['jeans', 'Russia', '2014', 50],
+ ['jeans', 'Russia', '2015', 11],
+ ['jeans', 'Russia', '2016', 72],
+ ['jeans', 'Russia', '2017', 92],
+ ['jeans', 'Russia', '2018', 159],
+ ['jeans', 'Russia', '2019', 50],
+ ['jeans', 'Belarus', '2010', 44],
+ ['jeans', 'Belarus', '2011', 75],
+ ['jeans', 'Belarus', '2012', 147],
+ ['jeans', 'Belarus', '2013', 152],
+ ['jeans', 'Belarus', '2014', 71],
+ ['jeans', 'Belarus', '2015', 90],
+ ['jeans', 'Belarus', '2016', 149],
+ ['jeans', 'Belarus', '2017', 125],
+ ['jeans', 'Belarus', '2018', 112],
+ ['jeans', 'Belarus', '2019', 72],
+ ['jeans', 'Ukraine', '2010', 32],
+ ['jeans', 'Ukraine', '2011', 23],
+ ['jeans', 'Ukraine', '2012', 62],
+ ['jeans', 'Ukraine', '2013', 80],
+ ['jeans', 'Ukraine', '2014', 29],
+ ['jeans', 'Ukraine', '2015', 113],
+ ['jeans', 'Ukraine', '2016', 93],
+ ['jeans', 'Ukraine', '2017', 79],
+ ['jeans', 'Ukraine', '2018', 15],
+ ['jeans', 'Ukraine', '2019', 149],
+ ['jeans', 'Lithuania', '2010', 83],
+ ['jeans', 'Lithuania', '2011', 129],
+ ['jeans', 'Lithuania', '2012', 37],
+ ['jeans', 'Lithuania', '2013', 71],
+ ['jeans', 'Lithuania', '2014', 37],
+ ['jeans', 'Lithuania', '2015', 89],
+ ['jeans', 'Lithuania', '2016', 80],
+ ['jeans', 'Lithuania', '2017', 15],
+ ['jeans', 'Lithuania', '2018', 72],
+ ['jeans', 'Lithuania', '2019', 88],
+ ['jeans', 'Latvia', '2010', 49],
+ ['jeans', 'Latvia', '2011', 81],
+ ['jeans', 'Latvia', '2012', 117],
+ ['jeans', 'Latvia', '2013', 112],
+ ['jeans', 'Latvia', '2014', 160],
+ ['jeans', 'Latvia', '2015', 20],
+ ['jeans', 'Latvia', '2016', 22],
+ ['jeans', 'Latvia', '2017', 26],
+ ['jeans', 'Latvia', '2018', 15],
+ ['jeans', 'Latvia', '2019', 49],
+ ['t-shirt', 'Russia', '2010', 118],
+ ['t-shirt', 'Russia', '2011', 141],
+ ['t-shirt', 'Russia', '2012', 101],
+ ['t-shirt', 'Russia', '2013', 116],
+ ['t-shirt', 'Russia', '2014', 154],
+ ['t-shirt', 'Russia', '2015', 118],
+ ['t-shirt', 'Russia', '2016', 69],
+ ['t-shirt', 'Russia', '2017', 117],
+ ['t-shirt', 'Russia', '2018', 85],
+ ['t-shirt', 'Russia', '2019', 142],
+ ['t-shirt', 'Belarus', '2010', 114],
+ ['t-shirt', 'Belarus', '2011', 66],
+ ['t-shirt', 'Belarus', '2012', 50],
+ ['t-shirt', 'Belarus', '2013', 17],
+ ['t-shirt', 'Belarus', '2014', 22],
+ ['t-shirt', 'Belarus', '2015', 34],
+ ['t-shirt', 'Belarus', '2016', 40],
+ ['t-shirt', 'Belarus', '2017', 62],
+ ['t-shirt', 'Belarus', '2018', 127],
+ ['t-shirt', 'Belarus', '2019', 43],
+ ['t-shirt', 'Ukraine', '2010', 160],
+ ['t-shirt', 'Ukraine', '2011', 11],
+ ['t-shirt', 'Ukraine', '2012', 141],
+ ['t-shirt', 'Ukraine', '2013', 122],
+ ['t-shirt', 'Ukraine', '2014', 106],
+ ['t-shirt', 'Ukraine', '2015', 135],
+ ['t-shirt', 'Ukraine', '2016', 65],
+ ['t-shirt', 'Ukraine', '2017', 124],
+ ['t-shirt', 'Ukraine', '2018', 137],
+ ['t-shirt', 'Ukraine', '2019', 10],
+ ['t-shirt', 'Lithuania', '2010', 27],
+ ['t-shirt', 'Lithuania', '2011', 59],
+ ['t-shirt', 'Lithuania', '2012', 37],
+ ['t-shirt', 'Lithuania', '2013', 72],
+ ['t-shirt', 'Lithuania', '2014', 124],
+ ['t-shirt', 'Lithuania', '2015', 159],
+ ['t-shirt', 'Lithuania', '2016', 17],
+ ['t-shirt', 'Lithuania', '2017', 159],
+ ['t-shirt', 'Lithuania', '2018', 101],
+ ['t-shirt', 'Lithuania', '2019', 114],
+ ['t-shirt', 'Latvia', '2010', 57],
+ ['t-shirt', 'Latvia', '2011', 111],
+ ['t-shirt', 'Latvia', '2012', 98],
+ ['t-shirt', 'Latvia', '2013', 53],
+ ['t-shirt', 'Latvia', '2014', 49],
+ ['t-shirt', 'Latvia', '2015', 138],
+ ['t-shirt', 'Latvia', '2016', 100],
+ ['t-shirt', 'Latvia', '2017', 37],
+ ['t-shirt', 'Latvia', '2018', 59],
+ ['t-shirt', 'Latvia', '2019', 79]]
+----
+
+=== Задание №5
+[source,python]
+----
+def get_day_formatted(date: datetime.date) -> str:
+    day = str(date.day)
+    return day if len(day) == 2 else '0' + day
+
+
+def get_month_formatted(date: datetime.date) -> str:
+    month = str(date.month)
+    return month if len(month) == 2 else '0' + month
+
+
+begin_date = datetime.date.fromisoformat('2020-03-01')
+end_date = datetime.date.fromisoformat('2020-07-01')
+total_days = (end_date - begin_date).days
+delta = datetime.timedelta(days=1)
+
+request_url = r'http://www.cbr.ru/scripts/XML_daily.asp?date_req='
+required_valuetes = ['USD', 'EUR', 'INR', 'UAH']
+required_valuetes_data = {valuete: list() for valuete in required_valuetes}
+session = requests.session()
+
+current_date = begin_date
+while current_date != end_date:
+    day = get_day_formatted(current_date)
+    month = get_month_formatted(current_date)
+    year = str(current_date.year)
+
+    web_request = request_url + f'{day}/{month}/{year}'
+    data = session.get(web_request)
+    xml = XmlElementTree.fromstring(data.text)
+
+    for valuete in xml:
+        valuete_name = valuete[1].text
+        valuete_cost = float(valuete[4].text.replace(',', '.')) / float(
+            valuete[2].text.replace(',', '.'))
+
+        if valuete_name in required_valuetes:
+            required_valuetes_data[valuete_name].append(valuete_cost)
+
+    current_date += delta
+
+for valuete in required_valuetes:
+    print(f'{valuete} = {required_valuetes_data[valuete]}')
+----
+
+.Результат
+[source, bash]
+----
+USD = [66.9909, 66.9909, 66.3274, 66.4437, 66.0784, 66.1854, 67.5175, 67.5175, 67.5175, 67.5175, 72.0208, 71.472, 74.0274, 73.1882, 73.1882, 73.1882, 74.1262, 73.8896, 77.2131, 80.157, 78.0443, 78.0443, 78.0443, 80.8815, 78.8493, 77.7928, 78.7223, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 77.7325, 76.4074, 75.455, 75.7499, 74.605, 73.7515, 73.7515, 73.7515, 73.5245, 73.315, 73.7145, 74.7119, 73.9441, 73.9441, 73.9441, 74.6657, 76.2562, 77.0416, 75.129, 74.7163, 74.7163, 74.7163, 74.496, 74.5706, 73.6894, 72.7263, 72.7263, 72.7263, 72.7263, 72.7263, 72.7263, 73.9719, 74.1169, 73.8725, 73.8725, 73.8725, 73.8725, 73.4326, 73.5819, 73.9298, 73.2056, 73.2056, 73.2056, 72.9798, 72.3918, 72.3381, 70.924, 71.8804, 71.8804, 71.8804, 71.5962, 71.1408, 71.0635, 71.1012, 70.752, 70.752, 70.752, 69.7114, 68.9831, 68.3413, 69.0151, 68.6319, 68.6319, 68.6319, 68.3123, 68.6745, 68.6183, 69.1219, 69.1219, 69.1219, 69.1219, 70.395, 69.7524, 69.4822, 69.618, 69.5725, 69.5725, 69.5725, 69.4835, 68.8376, 68.8376, 69.466, 69.1284, 69.1284, 69.1284, 69.9513]
+EUR = [73.7235, 73.7235, 73.4178, 73.9385, 73.7369, 73.6842, 75.8424, 75.8424, 75.8424, 75.8424, 81.8588, 81.0207, 83.6584, 81.861, 81.861, 81.861, 82.7471, 82.3056, 84.8881, 87.2669, 84.1552, 84.1552, 84.1552, 86.705, 85.4253, 84.1485, 85.9648, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 85.7389, 82.6346, 82.012, 82.2341, 81.0882, 80.7358, 80.7358, 80.7358, 80.5387, 80.1186, 80.6731, 81.2791, 80.111, 80.111, 80.111, 81.1019, 82.616, 83.6826, 81.1468, 80.2528, 80.2528, 80.2528, 80.7611, 80.7749, 80.0488, 79.1189, 79.1189, 79.1189, 79.1189, 79.1189, 79.1189, 80.0598, 80.0611, 80.0039, 80.0039, 80.0039, 80.0039, 79.4394, 79.7775, 79.9033, 79.1279, 79.1279, 79.1279, 78.9422, 79.1677, 79.1813, 77.7965, 78.4431, 78.4431, 78.4431, 77.8823, 77.7854, 77.9069, 78.2611, 78.5489, 78.5489, 78.5489, 77.6376, 76.7782, 76.6243, 77.3245, 77.9658, 77.9658, 77.9658, 77.1861, 77.3481, 77.9229, 78.5225, 78.5225, 78.5225, 78.5225, 79.1451, 79.0434, 78.3829, 78.2924, 78.0047, 78.0047, 78.0047, 77.8285, 77.6832, 77.759, 78.0589, 77.5413, 77.5413, 77.5413, 78.6812]
+INR = [0.9307519999999999, 0.9307519999999999, 0.920013, 0.909627, 0.899008, 0.9035550000000001, 0.9180429999999999, 0.9180429999999999, 0.9180429999999999, 0.9180429999999999, 0.9712919999999999, 0.970164, 0.9980100000000001, 0.989264, 0.989264, 0.989264, 0.997594, 0.9976990000000001, 1.03788, 1.06772, 1.0406900000000001, 1.0406900000000001, 1.0406900000000001, 1.06486, 1.03514, 1.01852, 1.0446199999999999, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.03457, 1.00268, 0.997673, 0.99175, 0.977881, 0.971507, 0.971507, 0.971507, 0.964066, 0.96113, 0.9644079999999999, 0.9717669999999999, 0.967804, 0.967804, 0.967804, 0.975544, 0.99279, 1.00458, 0.9876170000000001, 0.977259, 0.977259, 0.977259, 0.977029, 0.978777, 0.973794, 0.9683280000000001, 0.9683280000000001, 0.9683280000000001, 0.9683280000000001, 0.9683280000000001, 0.9683280000000001, 0.976333, 0.976707, 0.977829, 0.977829, 0.977829, 0.977829, 0.9725400000000001, 0.975047, 0.978393, 0.9686480000000001, 0.9686480000000001, 0.9686480000000001, 0.961336, 0.9570569999999999, 0.9542780000000001, 0.937931, 0.946355, 0.946355, 0.946355, 0.942012, 0.939872, 0.9385469999999999, 0.93828, 0.935638, 0.935638, 0.935638, 0.9228799999999999, 0.91535, 0.9054829999999999, 0.913182, 0.908334, 0.908334, 0.908334, 0.9041589999999999, 0.9082429999999999, 0.90771, 0.912127, 0.912127, 0.912127, 0.912127, 0.925848, 0.915206, 0.912459, 0.914391, 0.9131149999999999, 0.9131149999999999, 0.9131149999999999, 0.913871, 0.9100090000000001, 0.9090170000000001, 0.9180459999999999, 0.914207, 0.914207, 0.914207, 0.925691]
+UAH = [2.7257000000000002, 2.7257000000000002, 2.6803, 2.664, 2.64485, 2.6762699999999997, 2.72248, 2.72248, 2.72248, 2.72248, 2.8433, 2.79528, 2.86567, 2.8045400000000003, 2.8045400000000003, 2.8045400000000003, 2.8124, 2.73767, 2.8403400000000003, 2.88383, 2.78755, 2.78755, 2.78755, 2.87703, 2.83733, 2.7783100000000003, 2.79902, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.75213, 2.80394, 2.78478, 2.77828, 2.7388000000000003, 2.71095, 2.71095, 2.71095, 2.71659, 2.69888, 2.71084, 2.74941, 2.7319, 2.7319, 2.7319, 2.75755, 2.81536, 2.84512, 2.7833300000000003, 2.74855, 2.74855, 2.74855, 2.7484200000000003, 2.75677, 2.7360499999999996, 2.6979800000000003, 2.6979800000000003, 2.6979800000000003, 2.6979800000000003, 2.6979800000000003, 2.6979800000000003, 2.74603, 2.7642700000000002, 2.75448, 2.75448, 2.75448, 2.75448, 2.7393799999999997, 2.7558800000000003, 2.77208, 2.74836, 2.74836, 2.74836, 2.7462299999999997, 2.73202, 2.72226, 2.64812, 2.68697, 2.68697, 2.68697, 2.66206, 2.6444900000000002, 2.63142, 2.6444, 2.62872, 2.62872, 2.62872, 2.59886, 2.57376, 2.55239, 2.5847, 2.57973, 2.57973, 2.57973, 2.57008, 2.57763, 2.5756799999999997, 2.5990200000000003, 2.5990200000000003, 2.5990200000000003, 2.5990200000000003, 2.6222000000000003, 2.60812, 2.5948, 2.59925, 2.6029, 2.6029, 2.6029, 2.6060600000000003, 2.5874099999999998, 2.58172, 2.60441, 2.59175, 2.59175, 2.59175, 2.6174299999999997]
+----
